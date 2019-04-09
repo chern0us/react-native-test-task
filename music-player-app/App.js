@@ -8,8 +8,8 @@ import MainScreen from "./components/MainScreen";
 import PlayerScreen from "./components/PlayerScreen";
 import EmptyComponent from "./components/EmptyComponent";
 // Simple component to render something in place of icon
-const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? "red" : "black" }}>{title}</Text>;
+const TabIcon = ({ title }) => {
+  return <Text style={{ fontSize: 20}}>{title}</Text>;
 };
 
 export default class App extends React.Component {
@@ -25,7 +25,9 @@ export default class App extends React.Component {
             key="tabbar"
             tabs={true}
             hideNavBar={true}
-            tabBarStyle={{ backgroundColor: "#FFFFFF" }}
+            tabBarStyle={{ backgroundColor: "#FFFFFF"}}
+            labelStyle={{display: 'none'}}
+            activeBackgroundColor="#c0e2dc"
           >
             {/* Main tab*/}
             <Scene key="one" title="1" icon={TabIcon}>
