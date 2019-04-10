@@ -41,6 +41,7 @@ export default class App extends Component {
       rate: 1.0,
       portrait: null
     };
+    this.isUnmounted = false;
   }
 
   componentDidMount() {
@@ -56,9 +57,15 @@ export default class App extends Component {
 
     this._loadNewPlaybackInstance(false);
   }
-
+  componentWillUnmount() {
+    this.isUnmounted = true;
+    this._onStopPressed();
+  }
   async _loadNewPlaybackInstance(playing) {
     if (this.playbackInstance != null) {
+      if (this.isUnmounted) {
+        return;
+      }
       await this.playbackInstance.unloadAsync();
       this.playbackInstance.setOnPlaybackStatusUpdate(null);
       this.playbackInstance = null;
@@ -82,6 +89,9 @@ export default class App extends Component {
   }
 
   _updateScreenForLoading(isLoading) {
+    if (this.isUnmounted) {
+      return;
+    }
     if (isLoading) {
       this.setState({
         isPlaying: false,
@@ -100,6 +110,9 @@ export default class App extends Component {
   }
 
   _onPlaybackStatusUpdate = status => {
+    if (this.isUnmounted) {
+      return;
+    }
     if (status.isLoaded) {
       this.setState({
         playbackInstancePosition: status.positionMillis,
@@ -122,6 +135,9 @@ export default class App extends Component {
   };
 
   _advanceIndex(forward) {
+    if (this.isUnmounted) {
+      return;
+    }
     this.index =
       (this.index + (forward ? 1 : this.PLAYLIST.length - 1)) %
       this.PLAYLIST.length;
