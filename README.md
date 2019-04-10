@@ -1,4 +1,5 @@
-# Test Task App
+# react-native-test-task
 
-yarn
-yarn start
+$ yarn install 
+
+$ yarn start
