@@ -26,8 +26,6 @@ export default class MainScreen extends React.Component {
                 style={styles.trackListItem}
                 onPress={() => {
                   Actions.player({index,  title: item.name});
-                  Audio.setIsEnabledAsync(false);
-                  Audio.setIsEnabledAsync(true);
                 }}
                 underlayColor="#56D5FA"
               >
